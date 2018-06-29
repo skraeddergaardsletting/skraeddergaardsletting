@@ -461,11 +461,12 @@ h3{
 }
 
 h4{
-    font-family: 'Space Mono', monospace;
-    font-size:28px;
-    font-weight: 200;
-    color: #4A4A4A;
+    font-family: "canada-type-gibson", sans-serif;
+    font-size:16px;
+    font-weight: 900;
+    color: rgb(255,255,255,0);
     text-align: center;
+    transition: color 200ms;
 }
 
 h5{
@@ -548,9 +549,47 @@ mark{
 
 }
 
+.wish{
+    height: 300px;
+    width: 300px;
+    box-shadow: 0px 2px 20px #4a4a4a;
+    background-color: white;
+    border-radius: 4px;
+    margin: 20px;
+    justify-content: center;
+    display: flex;
+}
+
+.wishText{
+    color: wheat;
+    height: auto;
+    -webkit-transition: color 200ms; /* Safari */
+    transition: color 200ms;
+    background: rgb(255,255,255,0);
+    align-self: flex-end;
+    width: 100%;
+    transition: background 200ms;
+    padding: 8px;
 
 
-.blk {width:70px;height:70px;overflow:hidden;}
+}
+
+.wish:hover .wishText{
+    background: rgb(255,255,255,0.8);
+}
+
+.wish:hover h4{
+    color: #4a4a4a;
+}
+
+.wishContainer{
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+
+
 
 /*------------------- Progress ---------------------------*/
 
@@ -637,6 +676,13 @@ progress::-webkit-progress-bar {
         margin-left: 0rem;
     }
 
+    .wish .wishText{
+        background: rgb(255,255,255,0.8);
+    }
+
+    .wish h4{
+        color: #4a4a4a;
+    }
 
 
 }
@@ -648,7 +694,7 @@ progress::-webkit-progress-bar {
     h3{
         text-align:left;
     }
-    
+
     h5{
         text-align: left;
     }
@@ -708,7 +754,7 @@ progress::-webkit-progress-bar {
 .tick {
     padding:0 .5em;
     max-width: 800px;
-        margin:auto;
+    margin:auto;
 }
 
 .tick-value {
