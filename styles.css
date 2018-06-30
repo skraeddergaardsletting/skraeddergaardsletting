@@ -452,6 +452,17 @@ h1{
     color: #4A4A4A;
 }
 
+h2{
+    font-family: "mr-eaves-modern", sans-serif;
+    text-align: center;
+    font-style: italic;
+    font-weight: 200;
+    color: #4a4a4a;
+    font-size: 32px;
+    line-height: normal;
+}
+
+
 h3{
     font-family: 'Montez', cursive;
     font-size: 40px;
@@ -549,8 +560,35 @@ mark{
 }
 
 
+/*------------------- Vendespil ---------------------------*/
+div#memory_board{
 
-.blk {width:70px;height:70px;overflow:hidden;}
+    padding:24px;
+    margin:0px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1140px;
+}
+div#memory_board > div{
+    background: url(assets/Hjemmeside.jpg) no-repeat;
+    background-size: cover;
+    background-position: right;
+    transition: background 100ms;
+    border:#000 0px solid;
+    box-shadow: 0px 0px 20px #4a4a4a;
+    width:19%;
+    border-radius: 2px;
+    height:calc(19vw);
+    max-height: 200px;
+    max-width: 200px;
+    float:left;
+    margin:10px;
+    padding:20px;
+    font-size:64px;
+    cursor:pointer;
+    text-align:center;
+}
 
 /*------------------- Progress ---------------------------*/
 
@@ -637,6 +675,13 @@ progress::-webkit-progress-bar {
         margin-left: 0rem;
     }
 
+    div#memory_board{
+
+        padding:0px;
+
+    }
+
+
 
 
 }
@@ -648,7 +693,7 @@ progress::-webkit-progress-bar {
     h3{
         text-align:left;
     }
-    
+
     h5{
         text-align: left;
     }
@@ -656,6 +701,14 @@ progress::-webkit-progress-bar {
 
     .nav-link{
         padding: 5px;
+    }
+
+    div#memory_board > div{
+
+
+        min-height: 100px;
+        min-width: 100px;
+
     }
 
 }
@@ -708,7 +761,7 @@ progress::-webkit-progress-bar {
 .tick {
     padding:0 .5em;
     max-width: 800px;
-        margin:auto;
+    margin:auto;
 }
 
 .tick-value {

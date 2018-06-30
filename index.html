@@ -25,6 +25,87 @@
         <!-- preset page, only needed for demo purposes -->
         <!--        <link rel="stylesheet" href="preset.css">-->
 
+        <script>
+            var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F'];
+
+            // Scripted By Adam Khoury in connection with the following video tutorial:
+            // http://www.youtube.com/watch?v=c_ohDPWmsM0
+
+
+            var memory_values = [];
+            var memory_tile_ids = [];
+            var tiles_flipped = 0;
+            var counter = 0;
+            Array.prototype.memory_tile_shuffle = function(){
+                var i = this.length, j, temp;
+                while(--i > 0){
+                    j = Math.floor(Math.random() * (i+1));
+                    temp = this[j];
+                    this[j] = this[i];
+                    this[i] = temp;
+                }
+            }
+            function newBoard(){
+                tiles_flipped = 0;
+                counter = 0;
+                var output = '';
+                memory_array.memory_tile_shuffle();
+                for(var i = 0; i < memory_array.length; i++){
+                    output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
+                }
+                document.getElementById('memory_board').innerHTML = output;
+            }
+            function memoryFlipTile(tile,val){
+                if(tile.innerHTML == "" && memory_values.length < 2){
+
+
+                    tile.style.background = 'url(assets/vendespil/'+val+'.jpg)';
+                    tile.style.backgroundSize = 'cover';
+                    tile.style.backgroundPosition = 'center';
+                    if(memory_values.length == 0){
+                        memory_values.push(val);
+                        memory_tile_ids.push(tile.id);
+                    } else if(memory_values.length == 1){
+                        memory_values.push(val);
+                        memory_tile_ids.push(tile.id);
+                        counter++;
+                        console.log(counter);
+                        if(memory_values[0] == memory_values[1]){
+                            tiles_flipped += 2;
+
+                            // Clear both arrays
+                            memory_values = [];
+                            memory_tile_ids = [];
+                            // Check to see if the whole board is cleared
+                            if(tiles_flipped == memory_array.length){
+                                alert("Board cleared... generating new board"+counter);
+                                document.getElementById('memory_board').innerHTML = "";
+                                newBoard();
+                            }
+                        } else {
+                            function flip2Back(){
+                                // Flip the 2 tiles back over
+                                var tile_1 = document.getElementById(memory_tile_ids[0]);
+                                var tile_2 = document.getElementById(memory_tile_ids[1]);
+                                tile_1.style.background = 'url(assets/Hjemmeside.jpg) no-repeat';  
+                                tile_1.style.backgroundSize = 'cover';
+                                tile_1.style.backgroundPosition = 'right';
+                                tile_1.innerHTML = "";
+                                tile_2.style.background = 'url(assets/Hjemmeside.jpg) no-repeat';
+                                tile_2.style.backgroundSize = 'cover';
+                                tile_2.style.backgroundPosition = 'right';
+                                tile_2.innerHTML = "";
+                                // Clear both arrays
+                                memory_values = [];
+                                memory_tile_ids = [];
+                            }
+                            setTimeout(flip2Back, 700);
+                        }
+                    }
+                }
+            }
+        </script>
+
 
     </head>
 
@@ -252,9 +333,38 @@
 
                     }
                 </script>
+                
+                    <div class="col-sm-5">
+
+                    </div>
+
+                    <div class="col-sm-2" style="padding-top: 5rem;">
+                        <img class="wiggle" src="assets/wiggleDark.svg" />
+                    </div>
+                    <div class="col-sm-4">
+
+                    
+                </div>
             </div>
 
         </div>
+
+
+        <!--Jumbo-4-->
+
+        
+
+                    <h2>Nadia's Corner!</h2>
+
+
+          
+
+        <div id="memory_board"></div>
+        <script>newBoard();</script>
+
+
+
+
 
 
 
@@ -272,80 +382,7 @@
 
 
 
-        <script>
-            var Tile = function(x, y, face) {
-                this.x = x;
-                this.y = y;
-                this.face = face;
-                this.width = 70;
-            };
 
-            Tile.prototype.drawFaceDown = function() {
-                fill(214, 247, 202);
-                rect(this.x, this.y, this.width, this.width, 10);
-                image(getImage("avatars/leaf-green"), this.x, this.y, this.width, this.width);
-            };
-
-            Tile.prototype.drawFaceUp = function() {
-                fill(214, 247, 202);
-                strokeWeight(2);
-                rect(this.x, this.y, this.width, this.width, 10);
-                image(this.face, this.x, this.y, this.width, this.width);
-            };
-
-
-            // Declare an array of all possible faces
-            var faces = [
-                getImage("avatars/leafers-seed"),
-                getImage("avatars/leafers-seedling"),
-                getImage("avatars/leafers-sapling"),
-                getImage("avatars/leafers-tree"),
-                getImage("avatars/leafers-ultimate"),
-                getImage("avatars/marcimus"),
-                getImage("avatars/mr-pants"),
-                getImage("avatars/mr-pink"),
-                getImage("avatars/old-spice-man"),
-                getImage("avatars/robot_female_1"),
-                getImage("avatars/piceratops-tree"),
-                getImage("avatars/orange-juice-squid")
-            ];
-
-            // Make an array which has 2 of each, then randomize it
-            var selected = [];
-            for (var i = 0; i < 10; i++) {
-                // Randomly pick one from the array of remaining faces
-                var randomInd = floor(random(faces.length));
-                var face = faces[randomInd];
-                // Push 2 copies onto array
-                selected.push(face);
-                selected.push(face);
-                // Remove from array
-                faces.splice(randomInd, 1);
-            }
-
-            // Now we need to randomize the array
-            selected.sort(function() {
-                return 0.5 - random();
-            });
-
-            // Create the tiles
-            var tiles = [];
-            var NUM_COLS = 5;
-            var NUM_ROWS = 4;
-            for (var i = 0; i < NUM_COLS; i++) {
-                for (var j = 0; j < NUM_ROWS; j++) {
-                    tiles.push(new Tile(i * 78 + 10, j * 78 + 40, selected.pop()));
-                }
-            }
-
-            background(255, 255, 255);
-
-            // Now draw them face up
-            for (var i = 0; i < tiles.length; i++) {
-                tiles[i].drawFaceUp();
-            }
-
-        </script>
 
 
 
